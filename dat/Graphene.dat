@@ -1,0 +1,98 @@
+#
+# File Name
+#
+System.Name graphene
+level.of.stdout    1
+level.of.fileout   1
+
+DATA.PATH /home/ytl/openmx/openmx3.9/DFT_DATA19
+
+# Definition of Atomic Species
+#
+Species.Number 2
+<Definition.of.Atomic.Species
+C C6.0-s2p2d1 C_PBE19
+E Rn13.0-s2p2d2f1 E
+Definition.of.Atomic.Species>
+
+# Atoms
+#
+Atoms.Number 3
+Atoms.SpeciesAndCoordinates.Unit FRAC # Ang|AU
+<Atoms.SpeciesAndCoordinates
+     1      C     0.33326818792968   0.66673166523322   0.500000000  2.0 2.0
+     2      C     0.66673181208085   0.33326833476858   0.500000000  2.0 2.0
+     3      E     0.00000000000000   0.00000000000000   0.500000000  0.0 0.0
+Atoms.SpeciesAndCoordinates>
+Atoms.UnitVectors.Unit Ang # Ang|AU
+<Atoms.UnitVectors
+1.233544616479   -2.133202983757    0.0000
+1.233544616479    2.133202983757    0.0000
+0.000000000000    0.000000000000   18.0000
+Atoms.UnitVectors>
+
+# SCF or Electronic System
+#
+scf.XcType GGA-PBE # LDA|LSDA-CA|LSDA-PW|GGA-PBE
+scf.SpinPolarization off # On|Off|NC
+scf.energycutoff 600.0 # default=150 (Ry)
+scf.maxIter 200 # default=40
+scf.EigenvalueSolver band # DC|GDC|Cluster|Band
+scf.Kgrid 24 24 1 # means n1 x n2 x n3
+scf.Mixing.Type rmm-diisk # Simple|Rmm-Diis|Gr-Pulay|Kerker|Rmm-Diisk
+scf.Init.Mixing.Weight 0.30 # default=0.30
+scf.Min.Mixing.Weight 0.001 # default=0.001
+scf.Max.Mixing.Weight 0.700 # default=0.40
+scf.Mixing.History 10 # default=5
+scf.Mixing.StartPulay 5 # default=6
+scf.Mixing.EveryPulay 1 # default=5
+scf.criterion 1.0e-8 # default=1.0e-6 (Hartree)
+scf.lapack.dste dstevx # dstegr|dstedc|dstevx, default=dstevx
+
+<MD.Fixed.XYZ
+ 1  0 0 1
+ 2  0 0 1
+ 3  1 1 1
+MD.Fixed.XYZ>
+
+# DOS and PDOS
+#
+Dos.fileout off # on|off, default=off
+Dos.Erange -20.0 10.0 # default = -20 20
+Dos.Kgrid 48 48 1 # default = Kgrid1 Kgrid2 Kgrid3
+
+# Band dispersion
+#
+Band.dispersion off # on|off, default=off
+Band.Nkpath 4
+<Band.kpath
+200 0.00000000000000 0.00000000000000 0.00000000000000  0.33333333333333 0.33333333333333 0.00000000000000 G K
+100 0.33333333333333 0.33333333333333 0.00000000000000  0.50000000000000 0.00000000000000 0.00000000000000 K M
+173 0.50000000000000 0.00000000000000 0.00000000000000  0.00000000000000 0.00000000000000 0.00000000000000 M G
+ 37 0.00000000000000 0.00000000000000 0.00000000000000  0.00000000000000 0.00000000000000 0.50000000000000 G A
+Band.kpath>
+
+MD.Type  opt 
+MD.Opt.DIIS.History 3
+MD.Opt.StartDIIS    5
+MD.Opt.EveryDIIS    200
+MD.maxIter          200
+MD.Opt.criterion    1.0e-4
+
+# CDDF
+#
+CDDF.start                        off     # default = off , on|off
+CDDF.FWHM                         0.05    # default =  0.2 eV
+CDDF.maximum_energy               10.0    # default = 10.0 eV
+CDDF.minimum_energy                0.0    # default =  0.0 eV
+CDDF.frequency.grid.total_number  10000   # default = 10000 grids
+CDDF.shift_ChemP                  0.0     # default =  0.0 eV
+CDDF.Kgrid                     400 400 1  # default = scf.Kgrid
+CDDF.additional_maximum_energy      0.0   # default = 0.0 eV
+CDDF.approach                       0     # default = 0
+CDDF.printk                      1000     # default = 0
+
+# Others
+#
+scf.restart off
+scf.fixed.grid 0 0 0
